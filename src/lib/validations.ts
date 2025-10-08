@@ -6,7 +6,6 @@
 import { ETeamStatus } from '@/types/global';
 import { z } from 'zod';
 
-// Base team validation schema
 export const teamSchema = z.object({
   name: z
     .string()
@@ -52,16 +51,12 @@ export const teamSchema = z.object({
   status: z.nativeEnum(ETeamStatus),
 });
 
-// Create team schema (all fields required)
 export const createTeamSchema = teamSchema;
 
-// Update team schema (all fields required)
 export const updateTeamSchema = teamSchema;
 
-// Partial team schema for optional updates
 export const partialTeamSchema = teamSchema.partial();
 
-// Search and filter schemas
 export const searchSchema = z.object({
   query: z.string().max(100, 'Search query must be less than 100 characters').optional(),
 });
@@ -80,13 +75,11 @@ export const paginationSchema = z.object({
     .max(100, 'Page size must be at most 100'),
 });
 
-// Sort schema
 export const sortSchema = z.object({
   field: z.string().min(1, 'Sort field is required'),
   direction: z.enum(['asc', 'desc']),
 });
 
-// Form field schemas for individual validation
 export const nameFieldSchema = teamSchema.shape.name;
 export const descriptionFieldSchema = teamSchema.shape.description;
 export const codeFieldSchema = teamSchema.shape.code;
@@ -95,7 +88,6 @@ export const entityFieldSchema = teamSchema.shape.entity;
 export const managerFieldSchema = teamSchema.shape.manager;
 export const statusFieldSchema = teamSchema.shape.status;
 
-// Validation helper functions
 export const validateTeamName = (name: string): string | null => {
   try {
     nameFieldSchema.parse(name);
@@ -132,7 +124,6 @@ export const validateTeamEmail = (email: string): string | null => {
   }
 };
 
-// Type inference from schemas
 export type TTeamFormData = z.infer<typeof teamSchema>;
 export type TCreateTeamData = z.infer<typeof createTeamSchema>;
 export type TUpdateTeamData = z.infer<typeof updateTeamSchema>;
@@ -142,13 +133,11 @@ export type TFilterData = z.infer<typeof filterSchema>;
 export type TPaginationData = z.infer<typeof paginationSchema>;
 export type TSortData = z.infer<typeof sortSchema>;
 
-// Validation result type
 export interface IValidationResult {
   success: boolean;
   errors: Record<string, string>;
 }
 
-// Validate form data and return structured errors
 export const validateFormData = (data: unknown, schema: z.ZodSchema): IValidationResult => {
   try {
     schema.parse(data);
@@ -166,16 +155,12 @@ export const validateFormData = (data: unknown, schema: z.ZodSchema): IValidatio
   }
 };
 
-// Async validation for unique constraints (e.g., unique team codes)
 export const validateUniqueTeamCode = async (
   code: string,
   _excludeId?: string
 ): Promise<string | null> => {
-  // In a real application, this would make an API call
-  // For now, we'll simulate with a timeout
   await new Promise((resolve) => setTimeout(resolve, 100));
 
-  // Mock validation - in real app, check against database
   const existingCodes = ['ADM', 'CMG', 'IMG', 'SQM', 'PBM'];
   if (existingCodes.includes(code.toUpperCase())) {
     return 'Team code already exists';
@@ -184,7 +169,6 @@ export const validateUniqueTeamCode = async (
   return null;
 };
 
-// Debounced validation for real-time feedback
 export const createDebouncedValidator = <T>(
   validator: (value: T) => string | null,
   delay: number = 300

@@ -1,16 +1,11 @@
-/**
- * Tests for Input component
- */
-
-import { render, screen, fireEvent } from '@testing-library/react';
 import { Input } from '@/shared/components/ui/input';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 describe('Input Component', () => {
   it('should render with default props', () => {
     render(<Input placeholder='Enter text' />);
     const input = screen.getByPlaceholderText('Enter text');
     expect(input).toBeInTheDocument();
-    // Default type is undefined, so we check it doesn't have a type attribute
     expect(input).not.toHaveAttribute('type');
   });
 

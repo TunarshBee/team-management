@@ -1,8 +1,3 @@
-/**
- * Button component with multiple variants and sizes
- * Built with Radix UI primitives and Tailwind CSS
- */
-
 import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';

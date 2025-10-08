@@ -3,17 +3,17 @@
  * Features: Sliding side panel, React Hook Form + Zod validation, real-time validation
  */
 
-import * as React from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Check } from 'lucide-react';
-import { ITeam, ITeamFormData, ETeamStatus } from '@/types/global';
 import { createTeamSchema, updateTeamSchema } from '@/lib/validations';
 import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
-import { Textarea } from '@/shared/components/ui/textarea';
 import { Select } from '@/shared/components/ui/select';
 import SlidingPanel from '@/shared/components/ui/sliding-panel';
+import { Textarea } from '@/shared/components/ui/textarea';
+import { ETeamStatus, ITeam, ITeamFormData } from '@/types/global';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Check } from 'lucide-react';
+import * as React from 'react';
+import { useForm } from 'react-hook-form';
 
 export interface ITeamFormProps {
   team?: ITeam;
@@ -59,7 +59,6 @@ const TeamForm: React.FC<ITeamFormProps> = ({
     mode: 'onBlur',
   });
 
-  // Reset form when team changes or modal opens/closes
   React.useEffect(() => {
     if (isOpen) {
       reset({
@@ -84,7 +83,6 @@ const TeamForm: React.FC<ITeamFormProps> = ({
       await onSubmit(data);
       onClose();
     } catch (error) {
-      // Error handling is done in the parent component
       console.error('Form submission error:', error);
     }
   };
@@ -95,10 +93,8 @@ const TeamForm: React.FC<ITeamFormProps> = ({
     onClose();
   };
 
-  // Watch form values for real-time validation
   const watchedValues = watch();
 
-  // Check if fields are valid for checkmark icons
   const isNameValid = watchedValues.name && !errors.name;
   const isCodeValid = watchedValues.code && !errors.code;
   const isEmailValid = watchedValues.email && !errors.email;
@@ -111,7 +107,6 @@ const TeamForm: React.FC<ITeamFormProps> = ({
       width='w-[400px]'
     >
       <form onSubmit={handleSubmit(handleFormSubmit)} className='space-y-6'>
-        {/* Entity */}
         <div>
           <label className='block text-sm font-medium text-bazara-gray mb-2'>
             Entity <span className='text-red-500'>*</span>
@@ -125,7 +120,6 @@ const TeamForm: React.FC<ITeamFormProps> = ({
           />
         </div>
 
-        {/* Team Name */}
         <div>
           <label className='block text-sm font-medium text-bazara-gray mb-2'>
             Team Name <span className='text-red-500'>*</span>
@@ -143,7 +137,6 @@ const TeamForm: React.FC<ITeamFormProps> = ({
           </div>
         </div>
 
-        {/* Code */}
         <div>
           <label className='block text-sm font-medium text-bazara-gray mb-2'>
             Code <span className='text-red-500'>*</span>
@@ -164,7 +157,6 @@ const TeamForm: React.FC<ITeamFormProps> = ({
           <p className='text-xs text-bazara-gray-light mt-1'>Min.: 3 and Max.: 5 characters</p>
         </div>
 
-        {/* Description */}
         <div>
           <label className='block text-sm font-medium text-bazara-gray mb-2'>
             Description <span className='text-red-500'>*</span>
@@ -177,7 +169,6 @@ const TeamForm: React.FC<ITeamFormProps> = ({
           />
         </div>
 
-        {/* Team Email Address */}
         <div>
           <label className='block text-sm font-medium text-bazara-gray mb-2'>
             Team Email Address <span className='text-red-500'>*</span>
@@ -200,7 +191,6 @@ const TeamForm: React.FC<ITeamFormProps> = ({
           </p>
         </div>
 
-        {/* Team Manager */}
         <div>
           <label className='block text-sm font-medium text-bazara-gray mb-2'>
             Team Manager <span className='text-red-500'>*</span>
@@ -214,7 +204,6 @@ const TeamForm: React.FC<ITeamFormProps> = ({
           />
         </div>
 
-        {/* Status */}
         <div>
           <label className='block text-sm font-medium text-bazara-gray mb-2'>
             Status <span className='text-red-500'>*</span>
@@ -230,7 +219,6 @@ const TeamForm: React.FC<ITeamFormProps> = ({
           />
         </div>
 
-        {/* Action Buttons */}
         <div className='flex space-x-3 pt-6 border-t border-bazara-gray-light'>
           <Button
             type='button'

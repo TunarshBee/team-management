@@ -1,8 +1,3 @@
-/**
- * Select component with label, error, and helper text support
- * Built with Radix UI Select primitive and Tailwind CSS
- */
-
 import { cn } from '@/lib/utils';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { Check, ChevronDown, ChevronUp } from 'lucide-react';

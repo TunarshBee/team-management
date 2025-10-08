@@ -1,8 +1,3 @@
-/**
- * Dialog component for modals and overlays
- * Built with Radix UI Dialog primitive and Tailwind CSS
- */
-
 import * as React from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { X } from 'lucide-react';

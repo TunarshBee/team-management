@@ -1,8 +1,3 @@
-/**
- * Textarea component with label, error, and helper text support
- * Built with Radix UI primitives and Tailwind CSS
- */
-
 import { cn } from '@/lib/utils';
 import * as React from 'react';
 

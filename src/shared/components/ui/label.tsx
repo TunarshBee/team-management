@@ -1,8 +1,3 @@
-/**
- * Label component for form fields
- * Built with Radix UI Label primitive and Tailwind CSS
- */
-
 import * as React from 'react';
 import * as LabelPrimitive from '@radix-ui/react-label';
 import { cva, type VariantProps } from 'class-variance-authority';

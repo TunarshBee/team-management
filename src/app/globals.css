@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import 'tailwindcss';
+
 @theme {
   --font-inter: 'Inter', sans-serif;
   --font-montserrat: 'Montserrat', sans-serif;
@@ -29,6 +30,7 @@
   --color-bazara-gray: var(--bazara-gray);
   --color-bazara-gray-light: var(--bazara-gray-light);
 }
+
 :root {
   --background: 0 0% 100%;
   --foreground: 222.2 84% 4.9%;
@@ -52,11 +54,10 @@
   --ring: 221.2 83.2% 53.3%;
   --radius: 0.5rem;
 
-  /* Bazara specific colors */
-  --bazara-blue: 221, 83%, 49%; /* #2563eb */
-  --bazara-blue-light: 223, 84%, 95%; /* #e0e7ff */
-  --bazara-gray: 0, 0%, 50%; /* #6b7280 */
-  --bazara-gray-light: 0, 0%, 50%; /* #f3f4f6 */
+  --bazara-blue: 221, 83%, 49%;
+  --bazara-blue-light: 223, 84%, 95%;
+  --bazara-gray: 0, 0%, 50%;
+  --bazara-gray-light: 0, 0%, 50%;
 }
 
 @theme inline {
@@ -123,7 +124,6 @@ body {
   font-family: var(--font-inter), sans-serif;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -153,6 +153,7 @@ body {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -163,6 +164,7 @@ body {
     transform: translateY(-10px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;

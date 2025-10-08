@@ -1,8 +1,3 @@
-/**
- * Checkbox component using Radix UI
- * Features: Accessible checkbox with proper styling
- */
-
 'use client';
 
 import * as React from 'react';

@@ -3,8 +3,7 @@
  * Features: Accessible confirmation dialogs with customizable actions
  */
 
-import * as React from 'react';
-import { AlertTriangle, CheckCircle } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import { Button } from '@/shared/components/ui/button';
 import {
   Dialog,
@@ -14,7 +13,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/shared/components/ui/dialog';
-import { cn } from '@/lib/utils';
+import { AlertTriangle, CheckCircle } from 'lucide-react';
+import * as React from 'react';
 
 export interface IConfirmDialogProps {
   isOpen: boolean;
@@ -44,7 +44,6 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = ({
       await onConfirm();
       onClose();
     } catch (error) {
-      // Error handling is done in the parent component
       console.error('Confirmation action error:', error);
     }
   };

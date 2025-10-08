@@ -1,8 +1,3 @@
-/**
- * SuccessDialog component for success notifications
- * Features: Accessible success messages with customizable actions
- */
-
 import * as React from 'react';
 import { CheckCircle } from 'lucide-react';
 import { Button } from '@/shared/components/ui/button';

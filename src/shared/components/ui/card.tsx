@@ -1,8 +1,3 @@
-/**
- * Card components for content containers
- * Built with Tailwind CSS
- */
-
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 

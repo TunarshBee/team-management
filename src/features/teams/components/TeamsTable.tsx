@@ -1,8 +1,3 @@
-/**
- * TeamsTable component using TanStack Table
- * Features: Sorting, filtering, pagination, row selection, actions
- */
-
 import { DataTable } from '@/shared/components/ui/data-table';
 import { ITeam } from '@/types/global';
 import { Plus } from 'lucide-react';
@@ -45,7 +40,6 @@ const TeamsTable: React.FC<ITeamsTableProps> = ({ teams, onEdit, onDelete, onCre
 
   return (
     <div className='space-y-0'>
-      {/* Data Table */}
       <DataTable
         columns={teamsColumns}
         data={teams}

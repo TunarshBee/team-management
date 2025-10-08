@@ -87,7 +87,6 @@ export function DataTable<TData, TValue>({
   const [rowSelection, setRowSelection] = React.useState({});
   const [globalFilter, setGlobalFilter] = React.useState('');
 
-  // Add action column if actionItems are provided
   const tableColumns = React.useMemo(() => {
     if (actionItems.length === 0) return columns;
 
@@ -128,7 +127,6 @@ export function DataTable<TData, TValue>({
     return [...columns, actionColumn];
   }, [columns, actionItems, onRowAction]);
 
-  // Add selection column if enabled
   const finalColumns = React.useMemo(() => {
     if (!enableRowSelection) return tableColumns;
 

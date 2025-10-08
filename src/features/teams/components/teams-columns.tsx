@@ -1,7 +1,3 @@
-/**
- * Teams table column definitions for TanStack Table
- */
-
 import { truncateText } from '@/lib/utils';
 import { Button } from '@/shared/components/ui/button';
 import { ITeam } from '@/types/global';

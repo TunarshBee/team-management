@@ -5,9 +5,9 @@
 
 'use client';
 
-import * as React from 'react';
-import { X } from 'lucide-react';
 import { Button } from '@/shared/components/ui/button';
+import { X } from 'lucide-react';
+import * as React from 'react';
 
 export interface ISlidingPanelProps {
   isOpen: boolean;
@@ -24,7 +24,6 @@ const SlidingPanel: React.FC<ISlidingPanelProps> = ({
   children,
   width = 'w-96',
 }) => {
-  // Handle escape key
   React.useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) {
@@ -34,7 +33,6 @@ const SlidingPanel: React.FC<ISlidingPanelProps> = ({
 
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
-      // Prevent body scroll when panel is open
       document.body.style.overflow = 'hidden';
     }
 

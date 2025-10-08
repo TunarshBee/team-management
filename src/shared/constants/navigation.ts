@@ -1,7 +1,3 @@
-/**
- * Navigation constants and configuration
- */
-
 export interface INavigationItem {
   id: string;
   label: string;
@@ -20,7 +16,6 @@ export interface IManagerOption {
   label: string;
 }
 
-// Primary navigation items for the header
 export const PRIMARY_NAV_ITEMS: INavigationItem[] = [
   {
     id: 'home',
@@ -50,8 +45,14 @@ export const PRIMARY_NAV_ITEMS: INavigationItem[] = [
   },
 ];
 
-// Secondary navigation items (breadcrumbs)
 export const SECONDARY_NAV_ITEMS: INavigationItem[] = [
+  {
+    id: 'admin-settings',
+    label: 'Admin Settings',
+    href: '/admin/settings',
+  },
+];
+export const BREADCRUMB_ITEMS: INavigationItem[] = [
   {
     id: 'admin-settings',
     label: 'Admin Settings',
@@ -65,7 +66,6 @@ export const SECONDARY_NAV_ITEMS: INavigationItem[] = [
   },
 ];
 
-// Entity options for team management
 export const ENTITY_OPTIONS: IEntityOption[] = [
   { value: 'all', label: 'All Entities' },
   { value: 'access-bank-nigeria', label: 'Access Bank Nigeria' },
@@ -74,7 +74,6 @@ export const ENTITY_OPTIONS: IEntityOption[] = [
   { value: 'access-bank-uk', label: 'Access Bank UK' },
 ];
 
-// Manager options for team management
 export const MANAGER_OPTIONS: IManagerOption[] = [
   { value: 'john-doe', label: 'John Doe' },
   { value: 'jane-smith', label: 'Jane Smith' },
@@ -86,17 +85,14 @@ export const MANAGER_OPTIONS: IManagerOption[] = [
   { value: 'emily-garcia', label: 'Emily Garcia' },
 ];
 
-// Status filter options
 export const STATUS_FILTER_OPTIONS = [
   { value: 'all', label: 'All Statuses' },
   { value: 'active', label: 'Active Only' },
   { value: 'inactive', label: 'Inactive Only' },
 ] as const;
 
-// Page size options for pagination
 export const PAGE_SIZE_OPTIONS = [10, 20, 50, 100] as const;
 
-// Table column visibility options
 export const COLUMN_VISIBILITY_OPTIONS = [
   { key: 'name', label: 'Team Name' },
   { key: 'code', label: 'Code' },

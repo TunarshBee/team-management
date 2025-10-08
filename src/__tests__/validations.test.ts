@@ -1,9 +1,9 @@
 import {
   createTeamSchema,
   updateTeamSchema,
-  validateTeamName,
   validateTeamCode,
   validateTeamEmail,
+  validateTeamName,
 } from '@/lib/validations';
 import { ETeamStatus } from '@/types/global';
 
@@ -29,7 +29,7 @@ describe('Team Form Validation', () => {
       const result = createTeamSchema.safeParse(invalidData);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0]?.message).toBe('Team name is required');
+        expect(result.error.issues[0]?.message).toBe('Team name is required');
       }
     });
 
@@ -38,7 +38,7 @@ describe('Team Form Validation', () => {
       const result = createTeamSchema.safeParse(invalidData);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0]?.message).toBe('Team name must be at least 2 characters');
+        expect(result.error.issues[0]?.message).toBe('Team name must be at least 2 characters');
       }
     });
 
@@ -47,7 +47,7 @@ describe('Team Form Validation', () => {
       const result = createTeamSchema.safeParse(invalidData);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0]?.message).toBe('Team name must be less than 100 characters');
+        expect(result.error.issues[0]?.message).toBe('Team name must be less than 100 characters');
       }
     });
 
@@ -56,7 +56,7 @@ describe('Team Form Validation', () => {
       const result = createTeamSchema.safeParse(invalidData);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0]?.message).toBe('Please enter a valid email address');
+        expect(result.error.issues[0]?.message).toBe('Please enter a valid email address');
       }
     });
 
@@ -65,7 +65,7 @@ describe('Team Form Validation', () => {
       const result = createTeamSchema.safeParse(invalidData);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0]?.message).toBe('Code must be at least 3 characters');
+        expect(result.error.issues[0]?.message).toBe('Code must be at least 3 characters');
       }
     });
 
@@ -74,7 +74,7 @@ describe('Team Form Validation', () => {
       const result = createTeamSchema.safeParse(invalidData);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0]?.message).toBe('Code must be at most 5 characters');
+        expect(result.error.issues[0]?.message).toBe('Code must be at most 5 characters');
       }
     });
 
@@ -83,7 +83,7 @@ describe('Team Form Validation', () => {
       const result = createTeamSchema.safeParse(invalidData);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0]?.message).toBe(
+        expect(result.error.issues[0]?.message).toBe(
           'Code must contain only uppercase letters and numbers'
         );
       }
@@ -94,7 +94,7 @@ describe('Team Form Validation', () => {
       const result = createTeamSchema.safeParse(invalidData);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0]?.message).toBe('Description is required');
+        expect(result.error.issues[0]?.message).toBe('Description is required');
       }
     });
 
@@ -103,7 +103,7 @@ describe('Team Form Validation', () => {
       const result = createTeamSchema.safeParse(invalidData);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0]?.message).toBe('Description must be at least 10 characters');
+        expect(result.error.issues[0]?.message).toBe('Description must be at least 10 characters');
       }
     });
 
@@ -112,7 +112,7 @@ describe('Team Form Validation', () => {
       const result = createTeamSchema.safeParse(invalidData);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0]?.message).toBe('Manager is required');
+        expect(result.error.issues[0]?.message).toBe('Manager is required');
       }
     });
 
@@ -121,7 +121,7 @@ describe('Team Form Validation', () => {
       const result = createTeamSchema.safeParse(invalidData);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0]?.message).toBe('Entity is required');
+        expect(result.error.issues[0]?.message).toBe('Entity is required');
       }
     });
 
@@ -130,7 +130,9 @@ describe('Team Form Validation', () => {
       const result = createTeamSchema.safeParse(invalidData);
       expect(result.success).toBe(false);
       if (!result.success) {
-        expect(result.error.errors[0]?.message).toBe('Please select a valid status');
+        expect(result.error.issues[0]?.message).toBe(
+          'Invalid option: expected one of "Active"|"Inactive"'
+        );
       }
     });
   });

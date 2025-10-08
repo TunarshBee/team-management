@@ -31,7 +31,6 @@ const TeamsPage: React.FC = () => {
   const [successMessage, setSuccessMessage] = React.useState('');
   const [selectedEntity, setSelectedEntity] = React.useState('All Entities');
 
-  // Modal handlers
   const closeModals = () => {
     setIsCreateModalOpen(false);
     setIsEditModalOpen(false);
@@ -90,7 +89,6 @@ const TeamsPage: React.FC = () => {
 
   return (
     <div className='px-10 pb-10'>
-      {/* Page Content */}
       <div className='p-6 bg-background rounded-lg'>
         <h1 className='text-base font-bold leading-6 text-foreground pb-6 border-b border-[#EBEBEB] mb-6'>
           Teams
@@ -152,9 +150,7 @@ const TeamsPage: React.FC = () => {
                   <DropdownMenuItem
                     key={status.value}
                     className='cursor-pointer'
-                    onClick={() => {
-                      // Handle status filter change - placeholder for future implementation
-                    }}
+                    onClick={() => {}}
                   >
                     {status.label}
                   </DropdownMenuItem>
@@ -179,7 +175,6 @@ const TeamsPage: React.FC = () => {
         />
       </div>
 
-      {/* Create Team Modal */}
       <TeamForm
         isOpen={isCreateModalOpen}
         onClose={closeModals}
@@ -189,7 +184,6 @@ const TeamsPage: React.FC = () => {
         managerOptions={managerOptions}
       />
 
-      {/* Edit Team Modal */}
       <TeamForm
         isOpen={isEditModalOpen}
         onClose={closeModals}
@@ -200,7 +194,6 @@ const TeamsPage: React.FC = () => {
         team={selectedTeam || undefined}
       />
 
-      {/* Delete Confirmation Modal */}
       <ConfirmDialog
         isOpen={isDeleteModalOpen}
         onClose={closeModals}
@@ -212,7 +205,6 @@ const TeamsPage: React.FC = () => {
         variant='destructive'
       />
 
-      {/* Success Modal */}
       <SuccessDialog
         isOpen={isSuccessModalOpen}
         onClose={closeModals}

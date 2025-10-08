@@ -1,8 +1,3 @@
-/**
- * Table components for data display
- * Built with Tailwind CSS and accessibility features
- */
-
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 

@@ -1,8 +1,3 @@
-/**
- * Global TypeScript type definitions for Team Management application
- * Following project conventions: interfaces prefixed with 'I', types with 'T', enums with 'E'
- */
-
 export interface ITeam {
   id: string;
   name: string;
@@ -36,13 +31,11 @@ export interface ITeamStore {
   loading: boolean;
   error: string | null;
 
-  // CRUD operations
   createTeam: (teamData: ITeamFormData) => Promise<void>;
   updateTeam: (id: string, teamData: ITeamFormData) => Promise<void>;
   deleteTeam: (id: string) => Promise<void>;
   getTeamById: (id: string) => ITeam | undefined;
 
-  // Utility methods
   clearError: () => void;
 }
 
@@ -115,12 +108,10 @@ export interface IFormState {
   isValid: boolean;
 }
 
-// Utility types
 export type TSortDirection = 'asc' | 'desc';
 export type TPageSize = 10 | 20;
 export type TModalType = 'create' | 'edit' | 'delete' | 'confirm';
 
-// Component prop types
 export interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
   size?: 'default' | 'sm' | 'lg' | 'icon';

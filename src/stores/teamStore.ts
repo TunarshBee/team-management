@@ -1,25 +1,17 @@
-/**
- * Zustand store for Team Management
- * Provides CRUD operations with simulated API delays
- */
-
 import * as React from 'react';
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { ITeam, ITeamFormData, ITeamStore, ETeamStatus } from '@/types/global';
 import { mockTeams } from '@/data/teams';
 
-// Simulate API delay
 const simulateApiDelay = (): Promise<void> => {
   return new Promise((resolve) => setTimeout(resolve, 500));
 };
 
-// Generate unique ID
 const generateId = (): string => {
   return `team-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 };
 
-// Validate team data
 const validateTeamData = (data: ITeamFormData): string | null => {
   if (!data.name.trim()) return 'Team name is required';
   if (!data.description.trim()) return 'Description is required';
@@ -146,7 +138,6 @@ export const useTeamStore = create<ITeamStore>()(
   )
 );
 
-// Selectors for optimized re-renders
 export const useTeams = () => useTeamStore((state) => state.teams);
 export const useTeamLoading = () => useTeamStore((state) => state.loading);
 export const useTeamError = () => useTeamStore((state) => state.error);
@@ -159,7 +150,6 @@ export const useTeamActions = () =>
     clearError: state.clearError,
   }));
 
-// Utility selectors
 export const useActiveTeams = () => {
   const teams = useTeamStore((state) => state.teams);
   return React.useMemo(() => teams.filter((team) => team.status === ETeamStatus.ACTIVE), [teams]);
@@ -175,7 +165,6 @@ export const useTeamsByManager = (manager: string) => {
   return React.useMemo(() => teams.filter((team) => team.manager === manager), [teams, manager]);
 };
 
-// Search and filter utilities
 export const useFilteredTeams = (
   searchTerm: string,
   statusFilter: string,
@@ -186,7 +175,6 @@ export const useFilteredTeams = (
   return React.useMemo(() => {
     let filtered = teams;
 
-    // Text search (name or code)
     if (searchTerm.trim()) {
       const search = searchTerm.toLowerCase();
       filtered = filtered.filter(
@@ -195,12 +183,10 @@ export const useFilteredTeams = (
       );
     }
 
-    // Status filter
     if (statusFilter && statusFilter !== 'All') {
       filtered = filtered.filter((team) => team.status === statusFilter);
     }
 
-    // Entity filter
     if (entityFilter && entityFilter !== 'All') {
       filtered = filtered.filter((team) => team.entity === entityFilter);
     }
@@ -209,7 +195,6 @@ export const useFilteredTeams = (
   }, [teams, searchTerm, statusFilter, entityFilter]);
 };
 
-// Pagination utilities
 export const usePaginatedTeams = (teams: ITeam[], page: number, pageSize: number) => {
   const startIndex = (page - 1) * pageSize;
   const endIndex = startIndex + pageSize;

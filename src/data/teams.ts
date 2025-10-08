@@ -5,7 +5,6 @@
 
 import { ITeam, ETeamStatus } from '@/types/global';
 
-// Entity options for realistic data
 const entities = [
   'Access Bank Nigeria',
   'Access Bank Angola',
@@ -29,7 +28,6 @@ const entities = [
   'Access Bank United Arab Emirates',
 ];
 
-// Manager names for realistic data
 const managers = [
   'Joshua Gladness',
   'Sarah Johnson',
@@ -63,7 +61,6 @@ const managers = [
   'Megan Carter',
 ];
 
-// Team name templates for variety
 const teamNameTemplates = [
   'IT Support',
   'Change Management',
@@ -107,7 +104,6 @@ const teamNameTemplates = [
   'License Management',
 ];
 
-// Code prefixes for team codes
 const codePrefixes = [
   'IT',
   'CM',
@@ -151,20 +147,17 @@ const codePrefixes = [
   'LM',
 ];
 
-// Generate realistic team codes
 const generateTeamCode = (index: number): string => {
   const prefix = codePrefixes[index % codePrefixes.length];
   const suffix = String(index + 1).padStart(2, '0');
   return `${prefix}${suffix}`;
 };
 
-// Generate realistic email addresses
 const generateTeamEmail = (code: string, entity: string): string => {
   const entityCode = entity.toLowerCase().replace(/\s+/g, '');
   return `${code.toLowerCase()}@${entityCode}.com`;
 };
 
-// Generate team descriptions (deterministic based on name hash)
 const generateDescription = (name: string): string => {
   const descriptions = [
     `Manages ${name.toLowerCase()} operations and ensures service delivery excellence.`,
@@ -179,7 +172,6 @@ const generateDescription = (name: string): string => {
     `Administers ${name.toLowerCase()} systems and ensures reliability.`,
   ];
 
-  // Use deterministic hash instead of Math.random()
   let hash = 0;
   for (let i = 0; i < name.length; i++) {
     const char = name.charCodeAt(i);
@@ -190,7 +182,6 @@ const generateDescription = (name: string): string => {
   return descriptions[index];
 };
 
-// Generate a single team object
 const generateTeam = (index: number): ITeam => {
   const nameTemplate = teamNameTemplates[index % teamNameTemplates.length];
   const teamName = `${nameTemplate} Team ${Math.floor(index / teamNameTemplates.length) + 1}`;
@@ -198,10 +189,8 @@ const generateTeam = (index: number): ITeam => {
   const entity = entities[index % entities.length];
   const manager = managers[index % managers.length];
 
-  // Use deterministic status based on index instead of Math.random()
   const status = index % 10 === 0 ? ETeamStatus.INACTIVE : ETeamStatus.ACTIVE;
 
-  // Use deterministic dates based on index instead of Math.random()
   const baseDate = new Date('2023-01-01');
   const createdAt = new Date(baseDate.getTime() + index * 24 * 60 * 60 * 1000); // Each team created 1 day apart
   const updatedAt = new Date(createdAt.getTime() + (index % 30) * 24 * 60 * 60 * 1000); // Updated within 30 days
@@ -220,10 +209,8 @@ const generateTeam = (index: number): ITeam => {
   };
 };
 
-// Generate 500+ teams
 export const mockTeams: ITeam[] = Array.from({ length: 520 }, (_, index) => generateTeam(index));
 
-// Additional utility data
 export const entityOptions = entities.map((entity) => ({
   value: entity,
   label: entity,
@@ -239,7 +226,6 @@ export const statusOptions = [
   { value: ETeamStatus.INACTIVE, label: ETeamStatus.INACTIVE },
 ];
 
-// Statistics for testing
 export const teamStats = {
   total: mockTeams.length,
   active: mockTeams.filter((team) => team.status === ETeamStatus.ACTIVE).length,

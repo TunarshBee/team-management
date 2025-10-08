@@ -1,8 +1,3 @@
-/**
- * Header component matching the Bazara design
- * Features: Logo, search bar, navigation tabs, user icons
- */
-
 'use client';
 
 import * as React from 'react';
@@ -34,7 +29,6 @@ const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Center-Right - Primary Navigation Links */}
       <div className='flex items-center gap-6'>
         {PRIMARY_NAV_ITEMS.map((item) => (
           <Button
@@ -50,13 +44,6 @@ const Header: React.FC = () => {
           </Button>
         ))}
       </div>
-      {/* <Button
-            variant="ghost"
-            className="bg-bazara-blue-light text-bazara-blue hover:bg-bazara-blue hover:text-background px-2 py-1 rounded-md text-sm leading-[18px]"
-          >
-            Home
-          </Button> */}
-      {/* Right Side - User/App Icons */}
       <div className='flex items-center space-x-6 ml-6'>
         <div className='w-px h-6 bg-bazara-gray-light'></div>
         <Button
