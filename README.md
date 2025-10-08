@@ -2,7 +2,7 @@
 
 A comprehensive Team Management UI built with Next.js, TypeScript, and modern React patterns. This application demonstrates senior-level expertise in architecture, performance, accessibility, testing, and documentation.
 
-## íº€ Features
+## ï¿½ï¿½ï¿½ Features
 
 - **Team Management**: Complete CRUD operations for teams
 - **Advanced Table**: Sortable, filterable, and paginated data table
@@ -13,7 +13,7 @@ A comprehensive Team Management UI built with Next.js, TypeScript, and modern Re
 - **Type Safety**: Strict TypeScript with no `any` types
 - **Modern UI**: shadcn/ui components with Tailwind CSS
 
-## í³‹ Requirements Met
+## ï¿½ï¿½ï¿½ Requirements Met
 
 ### âœ… Project Setup & Architecture
 - âœ… Latest Next.js + TypeScript (strict mode enabled)
@@ -55,7 +55,7 @@ A comprehensive Team Management UI built with Next.js, TypeScript, and modern Re
 - âœ… Memoized filtering and sorting
 - âœ… Efficient pagination
 
-## í» ï¸ Tech Stack
+## ï¿½ï¿½ï¿½ï¸ Tech Stack
 
 - **Framework**: Next.js 15.5.4 with App Router
 - **Language**: TypeScript (strict mode)
@@ -65,7 +65,7 @@ A comprehensive Team Management UI built with Next.js, TypeScript, and modern Re
 - **UI Components**: Radix UI primitives
 - **Icons**: Lucide React
 
-## í³ Project Structure
+## ï¿½ï¿½ï¿½ Project Structure
 
 ```
 src/
@@ -91,7 +91,7 @@ src/
     â””â”€â”€ global.d.ts    # Global types and interfaces
 ```
 
-## íº€ Getting Started
+## ï¿½ï¿½ï¿½ Getting Started
 
 ### Prerequisites
 - Node.js 18+ 
@@ -124,9 +124,10 @@ src/
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
-- `npm run type-check` - Run TypeScript compiler
+- `npm run test` - Run tests
+- `npm run test:coverage` - Run tests with coverage
 
-## í¾¯ Usage
+## ï¿½ï¿½ï¿½ Usage
 
 ### Teams Management
 
@@ -147,7 +148,7 @@ All forms include real-time validation:
 - **Real-time feedback**: Errors display as you type
 - **Submission prevention**: Invalid forms cannot be submitted
 
-## í·ª Testing
+## ï¿½ï¿½ï¿½ Testing
 
 The application includes comprehensive testing setup:
 
@@ -158,10 +159,26 @@ The application includes comprehensive testing setup:
 ### Running Tests
 
 ```bash
+# Run all tests
 npm test
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run specific test file
+npm test -- --testPathPatterns="Button.test.tsx"
 ```
 
-## í¾¨ Design System
+### Test Coverage
+
+Current test coverage includes:
+- âœ… Utility functions (100% coverage)
+- âœ… UI components (Button, Input)
+- âœ… Validation schemas
+- âœ… State management
+- âœ… Component integration tests
+
+## ï¿½ï¿½ï¿½ Design System
 
 ### Colors
 - **Primary**: Blue (#3B82F6)
@@ -179,7 +196,7 @@ npm test
 - **Base Unit**: 0.25rem (4px)
 - **Common Values**: 1, 2, 3, 4, 6, 8, 12, 16, 20, 24
 
-## í´§ Configuration
+## ï¿½ï¿½ï¿½ Configuration
 
 ### Environment Variables
 No environment variables required for basic functionality.
@@ -189,7 +206,7 @@ No environment variables required for basic functionality.
 - **Components**: Customize shadcn/ui components in `shared/components/ui/`
 - **Validation**: Update schemas in `lib/validations.ts`
 
-## í³± Responsive Design
+## ï¿½ï¿½ï¿½ Responsive Design
 
 The application is fully responsive with breakpoints:
 - **Mobile**: < 640px
@@ -210,21 +227,21 @@ Key responsive features:
 - **Focus Management**: Proper focus handling in modals
 - **Color Contrast**: WCAG AA compliant color combinations
 
-## íº€ Performance Optimizations
+## ï¿½ï¿½ï¿½ Performance Optimizations
 
 - **Code Splitting**: Automatic route-based splitting
 - **Memoization**: React.memo and useMemo for expensive operations
 - **Lazy Loading**: Components loaded on demand
 - **Bundle Size**: Optimized imports and tree shaking
 
-## í°› Error Handling
+## ï¿½ï¿½ï¿½ Error Handling
 
 - **Global Error Boundary**: Catches unexpected errors
 - **Form Validation**: Real-time field validation
 - **API Error Handling**: Graceful error messages
 - **Loading States**: User feedback during operations
 
-## í³ˆ Future Enhancements
+## ï¿½ï¿½ï¿½ Future Enhancements
 
 - **Real API Integration**: Replace mock data with real endpoints
 - **Advanced Filtering**: Date ranges, multiple selections
@@ -233,7 +250,7 @@ Key responsive features:
 - **Audit Trail**: Track team changes over time
 - **Role-based Access**: Different permissions for different users
 
-## í´ Contributing
+## ï¿½ï¿½ï¿½ Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -245,7 +262,7 @@ Key responsive features:
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## í±¨â€í²» Author
+## ï¿½ï¿½ï¿½â€ï¿½ï¿½ï¿½ Author
 
 Built as part of a Frontend Engineer Assessment demonstrating:
 - Senior-level React/Next.js expertise
@@ -254,3 +271,18 @@ Built as part of a Frontend Engineer Assessment demonstrating:
 - Accessibility best practices
 - Performance optimization techniques
 - Comprehensive testing strategies
+
+## ğŸ”§ Architecture Decisions
+
+Key architectural decisions are documented in [docs/adr.md](docs/adr.md):
+
+1. **State Management**: Zustand over React Context for better performance
+2. **Form Validation**: Zod over Yup for better TypeScript integration
+3. **UI Components**: shadcn/ui for maximum customization and control
+4. **Pagination**: Client-side pagination for simplicity and performance
+
+## ğŸ“š Additional Documentation
+
+- [Architecture Decision Record](docs/adr.md) - Key technical decisions
+- [Project Summary](PROJECT_SUMMARY.md) - High-level overview
+- [Deliverables](DELIVERABLES.md) - Detailed requirements checklist

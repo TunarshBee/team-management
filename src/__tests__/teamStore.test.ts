@@ -1,148 +1,179 @@
 import { renderHook, act } from '@testing-library/react';
 import { useTeamStore } from '@/stores/teamStore';
-import { ETeamStatus, ETeamEntity } from '@/types/global';
+import { ETeamStatus, ITeamFormData } from '@/types/global';
 
 // Mock the teams data
 jest.mock('@/data/teams', () => ({
-  mockTeams: [
-    {
-      id: '1',
-      name: 'Test Team',
-      description: 'Test Description',
-      code: 'TEST',
-      email: 'test@example.com',
-      entity: ETeamEntity.ACCESS_BANK_NIGERIA,
-      manager: { id: '1', name: 'Test Manager', email: 'manager@example.com' },
-      status: ETeamStatus.ACTIVE,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-  ],
-  managers: [
-    { id: '1', name: 'Test Manager', email: 'manager@example.com' },
-  ],
+	mockTeams: [
+		{
+			id: 'team-001',
+			name: 'Test Team',
+			description: 'This is a test team description',
+			code: 'TEST',
+			email: 'test@example.com',
+			entity: 'Access Bank Nigeria',
+			manager: 'Test Manager',
+			status: ETeamStatus.ACTIVE,
+			createdAt: new Date('2024-01-01'),
+			updatedAt: new Date('2024-01-01'),
+		},
+	],
+	entityOptions: [
+		{ value: 'Access Bank Nigeria', label: 'Access Bank Nigeria' },
+	],
+	managerOptions: [
+		{ value: 'Test Manager', label: 'Test Manager' },
+	],
 }));
 
 describe('Team Store', () => {
-  beforeEach(() => {
-    // Reset store state before each test
-    useTeamStore.setState({
-      teams: [],
-      isLoading: false,
-      error: null,
-    });
-  });
+	beforeEach(() => {
+		// Reset store state before each test
+		useTeamStore.setState({
+			teams: [],
+			loading: false,
+			error: null,
+		});
+	});
 
-  it('should fetch teams successfully', async () => {
-    const { result } = renderHook(() => useTeamStore());
+	it('should initialize with mock teams', () => {
+		const { result } = renderHook(() => useTeamStore());
+		expect(result.current.teams).toHaveLength(1);
+		expect(result.current.teams[0].name).toBe('Test Team');
+	});
 
-    await act(async () => {
-      await result.current.fetchTeams();
-    });
+	it('should create a new team', async () => {
+		const { result } = renderHook(() => useTeamStore());
 
-    expect(result.current.teams).toHaveLength(1);
-    expect(result.current.teams[0].name).toBe('Test Team');
-    expect(result.current.isLoading).toBe(false);
-    expect(result.current.error).toBeNull();
-  });
+		const newTeamData: ITeamFormData = {
+			name: 'New Team',
+			description: 'This is a new team description',
+			code: 'NEW',
+			email: 'new@example.com',
+			entity: 'Access Bank Nigeria',
+			manager: 'Test Manager',
+			status: ETeamStatus.ACTIVE,
+		};
 
-  it('should create a new team', async () => {
-    const { result } = renderHook(() => useTeamStore());
+		await act(async () => {
+			await result.current.createTeam(newTeamData);
+		});
 
-    // First fetch teams
-    await act(async () => {
-      await result.current.fetchTeams();
-    });
+		expect(result.current.teams).toHaveLength(2);
+		expect(result.current.teams[1].name).toBe('New Team');
+		expect(result.current.teams[1].code).toBe('NEW');
+	});
 
-    const newTeamData = {
-      name: 'New Team',
-      description: 'New Description',
-      code: 'NEW',
-      email: 'new@example.com',
-      entity: ETeamEntity.ACCESS_BANK_NIGERIA,
-      managerId: '1',
-      status: ETeamStatus.ACTIVE,
-    };
+	it('should update an existing team', async () => {
+		const { result } = renderHook(() => useTeamStore());
 
-    let createdTeam;
-    await act(async () => {
-      createdTeam = await result.current.createTeam(newTeamData);
-    });
+		const updateData: ITeamFormData = {
+			name: 'Updated Team',
+			description: 'This is an updated team description',
+			code: 'UPD',
+			email: 'updated@example.com',
+			entity: 'Access Bank Nigeria',
+			manager: 'Test Manager',
+			status: ETeamStatus.INACTIVE,
+		};
 
-    expect(createdTeam).toBeDefined();
-    expect(createdTeam?.name).toBe('New Team');
-    expect(result.current.teams).toHaveLength(2);
-  });
+		await act(async () => {
+			await result.current.updateTeam('team-001', updateData);
+		});
 
-  it('should update an existing team', async () => {
-    const { result } = renderHook(() => useTeamStore());
+		const updatedTeam = result.current.teams.find(team => team.id === 'team-001');
+		expect(updatedTeam?.name).toBe('Updated Team');
+		expect(updatedTeam?.status).toBe(ETeamStatus.INACTIVE);
+	});
 
-    // First fetch teams
-    await act(async () => {
-      await result.current.fetchTeams();
-    });
+	it('should delete a team', async () => {
+		const { result } = renderHook(() => useTeamStore());
 
-    const updateData = {
-      name: 'Updated Team',
-      description: 'Updated Description',
-      code: 'UPD',
-      email: 'updated@example.com',
-      entity: ETeamEntity.ACCESS_BANK_NIGERIA,
-      managerId: '1',
-      status: ETeamStatus.INACTIVE,
-    };
+		expect(result.current.teams).toHaveLength(1);
 
-    let updatedTeam;
-    await act(async () => {
-      updatedTeam = await result.current.updateTeam('1', updateData);
-    });
+		await act(async () => {
+			await result.current.deleteTeam('team-001');
+		});
 
-    expect(updatedTeam).toBeDefined();
-    expect(updatedTeam?.name).toBe('Updated Team');
-    expect(updatedTeam?.status).toBe(ETeamStatus.INACTIVE);
-  });
+		expect(result.current.teams).toHaveLength(0);
+	});
 
-  it('should delete a team', async () => {
-    const { result } = renderHook(() => useTeamStore());
+	it('should get team by id', () => {
+		const { result } = renderHook(() => useTeamStore());
 
-    // First fetch teams
-    await act(async () => {
-      await result.current.fetchTeams();
-    });
+		const team = result.current.getTeamById('team-001');
+		expect(team).toBeDefined();
+		expect(team?.name).toBe('Test Team');
 
-    expect(result.current.teams).toHaveLength(1);
+		const nonExistentTeam = result.current.getTeamById('non-existent');
+		expect(nonExistentTeam).toBeUndefined();
+	});
 
-    await act(async () => {
-      await result.current.deleteTeam('1');
-    });
+	it('should handle validation errors', async () => {
+		const { result } = renderHook(() => useTeamStore());
 
-    expect(result.current.teams).toHaveLength(0);
-  });
+		const invalidTeamData: ITeamFormData = {
+			name: '', // Invalid: empty name
+			description: 'Valid description',
+			code: 'AB', // Invalid: too short
+			email: 'invalid-email', // Invalid: bad format
+			entity: 'Access Bank Nigeria',
+			manager: 'Test Manager',
+			status: ETeamStatus.ACTIVE,
+		};
 
-  it('should handle errors gracefully', async () => {
-    const { result } = renderHook(() => useTeamStore());
+		await act(async () => {
+			try {
+				await result.current.createTeam(invalidTeamData);
+			} catch (error) {
+				// Expected to throw
+			}
+		});
 
-    // Mock a failing operation
-    const originalCreateTeam = result.current.createTeam;
-    result.current.createTeam = jest.fn().mockRejectedValue(new Error('API Error'));
+		expect(result.current.error).toBe('Team name is required');
+		expect(result.current.teams).toHaveLength(1); // Should not add invalid team
+	});
 
-    await act(async () => {
-      try {
-        await result.current.createTeam({
-          name: 'Test',
-          description: 'Test',
-          code: 'TST',
-          email: 'test@test.com',
-          entity: ETeamEntity.ACCESS_BANK_NIGERIA,
-          managerId: '1',
-          status: ETeamStatus.ACTIVE,
-        });
-      } catch (error) {
-        // Expected to throw
-      }
-    });
+	it('should clear error', () => {
+		const { result } = renderHook(() => useTeamStore());
 
-    expect(result.current.error).toBe('API Error');
-    expect(result.current.isLoading).toBe(false);
-  });
+		// Set an error
+		useTeamStore.setState({ error: 'Test error' });
+		expect(result.current.error).toBe('Test error');
+
+		// Clear the error
+		act(() => {
+			result.current.clearError();
+		});
+
+		expect(result.current.error).toBeNull();
+	});
+
+	it('should simulate loading state during operations', async () => {
+		const { result } = renderHook(() => useTeamStore());
+
+		const newTeamData: ITeamFormData = {
+			name: 'Loading Test Team',
+			description: 'This is a test team for loading state',
+			code: 'LDT',
+			email: 'loading@example.com',
+			entity: 'Access Bank Nigeria',
+			manager: 'Test Manager',
+			status: ETeamStatus.ACTIVE,
+		};
+
+		// Start the operation
+		const createPromise = act(async () => {
+			await result.current.createTeam(newTeamData);
+		});
+
+		// Check loading state is true during operation
+		expect(result.current.loading).toBe(true);
+
+		// Wait for operation to complete
+		await createPromise;
+
+		// Check loading state is false after operation
+		expect(result.current.loading).toBe(false);
+	});
 });
