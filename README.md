@@ -16,17 +16,20 @@ A comprehensive Team Management UI built with Next.js, TypeScript, and modern Re
 ## ��� Requirements Met
 
 ### ✅ Project Setup & Architecture
+
 - ✅ Latest Next.js + TypeScript (strict mode enabled)
 - ✅ Feature-based folder structure
 - ✅ Type Safety: No use of `any`
 - ✅ Clean separation of concerns
 
 ### ✅ Data Layer
+
 - ✅ 500+ Team objects with realistic mock data
 - ✅ Zustand store with CRUD methods
 - ✅ 500ms simulated API delay
 
 ### ✅ Teams Page (/teams)
+
 - ✅ Complete table with all required columns
 - ✅ Client-side pagination (10/20 rows per page)
 - ✅ Text search (Name or Code)
@@ -35,22 +38,26 @@ A comprehensive Team Management UI built with Next.js, TypeScript, and modern Re
 - ✅ Edit and Delete actions
 
 ### ✅ Side-Modal Forms
+
 - ✅ Create and Edit modals
 - ✅ All required fields with validation
 - ✅ React Hook Form + Zod validation
 - ✅ Error handling and success feedback
 
 ### ✅ Styling & Responsiveness
+
 - ✅ shadcn/ui components
 - ✅ Fully responsive design
 - ✅ Consistent design system
 
 ### ✅ Accessibility
+
 - ✅ ARIA roles on table, dialogs, forms
 - ✅ Keyboard navigation support
 - ✅ Screen reader friendly
 
 ### ✅ Performance
+
 - ✅ Optimized re-renders with Zustand selectors
 - ✅ Memoized filtering and sorting
 - ✅ Efficient pagination
@@ -94,23 +101,27 @@ src/
 ## ��� Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - npm or yarn
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd team-management
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Run the development server**
+
    ```bash
    npm run dev
    ```
@@ -143,6 +154,7 @@ src/
 ### Form Validation
 
 All forms include real-time validation:
+
 - **Required fields**: Name, Description, Code, Entity, Manager, Status
 - **Format validation**: Email format, code length (3-5 chars)
 - **Real-time feedback**: Errors display as you type
@@ -172,6 +184,7 @@ npm test -- --testPathPatterns="Button.test.tsx"
 ### Test Coverage
 
 Current test coverage includes:
+
 - ✅ Utility functions (100% coverage)
 - ✅ UI components (Button, Input)
 - ✅ Validation schemas
@@ -181,6 +194,7 @@ Current test coverage includes:
 ## ��� Design System
 
 ### Colors
+
 - **Primary**: Blue (#3B82F6)
 - **Secondary**: Gray (#6B7280)
 - **Success**: Green (#10B981)
@@ -188,20 +202,24 @@ Current test coverage includes:
 - **Muted**: Light Gray (#F3F4F6)
 
 ### Typography
+
 - **Font Family**: Geist Sans (primary), Geist Mono (code)
 - **Sizes**: text-xs to text-4xl
 - **Weights**: 400 (normal), 500 (medium), 600 (semibold), 700 (bold)
 
 ### Spacing
+
 - **Base Unit**: 0.25rem (4px)
 - **Common Values**: 1, 2, 3, 4, 6, 8, 12, 16, 20, 24
 
 ## ��� Configuration
 
 ### Environment Variables
+
 No environment variables required for basic functionality.
 
 ### Customization
+
 - **Theme**: Modify CSS variables in `globals.css`
 - **Components**: Customize shadcn/ui components in `shared/components/ui/`
 - **Validation**: Update schemas in `lib/validations.ts`
@@ -209,11 +227,13 @@ No environment variables required for basic functionality.
 ## ��� Responsive Design
 
 The application is fully responsive with breakpoints:
+
 - **Mobile**: < 640px
-- **Tablet**: 640px - 1024px  
+- **Tablet**: 640px - 1024px
 - **Desktop**: > 1024px
 
 Key responsive features:
+
 - Collapsible navigation on mobile
 - Stacked form layouts on small screens
 - Responsive table with horizontal scroll
@@ -265,6 +285,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## ���‍��� Author
 
 Built as part of a Frontend Engineer Assessment demonstrating:
+
 - Senior-level React/Next.js expertise
 - Modern TypeScript practices
 - Clean architecture patterns

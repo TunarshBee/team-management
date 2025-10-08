@@ -1,37 +1,35 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { ITeam, ITeamFormData } from "@/types/global";
-import { useTeamStore } from "@/stores/teamStore";
-import { entityOptions, managerOptions } from "@/data/teams";
-import { ENTITY_OPTIONS, STATUS_FILTER_OPTIONS } from "@/shared/constants/navigation";
-import TeamsTable from "@/features/teams/components/TeamsTable";
-import TeamForm from "@/features/teams/components/TeamForm";
-import ConfirmDialog from "@/shared/components/ui/confirm-dialog";
-import SuccessDialog from "@/shared/components/ui/success-dialog";
-import { Button } from "@/shared/components/ui/button";
-import { Input } from "@/shared/components/ui/input";
-import { Search, ChevronDown, Plus } from "lucide-react";
+import { entityOptions, managerOptions } from '@/data/teams';
+import TeamForm from '@/features/teams/components/TeamForm';
+import TeamsTable from '@/features/teams/components/TeamsTable';
+import { Button } from '@/shared/components/ui/button';
+import ConfirmDialog from '@/shared/components/ui/confirm-dialog';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@/shared/components/ui/dropdown-menu";
+} from '@/shared/components/ui/dropdown-menu';
+import { Input } from '@/shared/components/ui/input';
+import SuccessDialog from '@/shared/components/ui/success-dialog';
+import { ENTITY_OPTIONS, STATUS_FILTER_OPTIONS } from '@/shared/constants/navigation';
+import { useTeamStore } from '@/stores/teamStore';
+import { ITeam, ITeamFormData } from '@/types/global';
+import { ChevronDown, Plus, Search } from 'lucide-react';
+import * as React from 'react';
 
 const TeamsPage: React.FC = () => {
-  const { teams, loading, createTeam, updateTeam, deleteTeam, clearError } =
-    useTeamStore();
+  const { teams, loading, createTeam, updateTeam, deleteTeam, clearError } = useTeamStore();
 
   const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = React.useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = React.useState(false);
   const [selectedTeam, setSelectedTeam] = React.useState<ITeam | null>(null);
-  const [successMessage, setSuccessMessage] = React.useState("");
-  const [selectedEntity, setSelectedEntity] = React.useState("All Entities");
-  const [selectedStatus, setSelectedStatus] = React.useState("All Statuses");
+  const [successMessage, setSuccessMessage] = React.useState('');
+  const [selectedEntity, setSelectedEntity] = React.useState('All Entities');
 
   // Modal handlers
   const closeModals = () => {
@@ -46,11 +44,11 @@ const TeamsPage: React.FC = () => {
   const handleCreateTeam = async (data: ITeamFormData) => {
     try {
       await createTeam(data);
-      setSuccessMessage("Team created successfully!");
+      setSuccessMessage('Team created successfully!');
       setIsCreateModalOpen(false);
       setIsSuccessModalOpen(true);
     } catch (error) {
-      console.error("Failed to create team:", error);
+      console.error('Failed to create team:', error);
     }
   };
 
@@ -59,11 +57,11 @@ const TeamsPage: React.FC = () => {
 
     try {
       await updateTeam(selectedTeam.id, data);
-      setSuccessMessage("Team updated successfully!");
+      setSuccessMessage('Team updated successfully!');
       setIsEditModalOpen(false);
       setIsSuccessModalOpen(true);
     } catch (error) {
-      console.error("Failed to update team:", error);
+      console.error('Failed to update team:', error);
     }
   };
 
@@ -72,11 +70,11 @@ const TeamsPage: React.FC = () => {
 
     try {
       await deleteTeam(selectedTeam.id);
-      setSuccessMessage("Team deleted successfully!");
+      setSuccessMessage('Team deleted successfully!');
       setIsDeleteModalOpen(false);
       setIsSuccessModalOpen(true);
     } catch (error) {
-      console.error("Failed to delete team:", error);
+      console.error('Failed to delete team:', error);
     }
   };
 
@@ -91,45 +89,45 @@ const TeamsPage: React.FC = () => {
   };
 
   return (
-    <div className="px-10 pb-10">
+    <div className='px-10 pb-10'>
       {/* Page Content */}
-      <div className="p-6 bg-background rounded-lg">
-        <h1 className="text-base font-bold leading-6 text-foreground pb-6 border-b border-[#EBEBEB] mb-6">
+      <div className='p-6 bg-background rounded-lg'>
+        <h1 className='text-base font-bold leading-6 text-foreground pb-6 border-b border-[#EBEBEB] mb-6'>
           Teams
         </h1>
 
-        <div className="flex items-center justify-between p-6">
-          <div className="flex items-center gap-4">
-            <div className="relative max-w-[350px]">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-bazara-gray w-4 h-4" />
+        <div className='flex items-center justify-between p-6'>
+          <div className='flex items-center gap-4'>
+            <div className='relative max-w-[350px]'>
+              <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-bazara-gray w-4 h-4' />
               <Input
-                placeholder="Search by team name or code"
-                className="pl-10 border border-[#EBEBEB] rounded-lg"
+                placeholder='Search by team name or code'
+                className='pl-10 border border-[#EBEBEB] rounded-lg'
               />
             </div>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
-                  variant="outline"
-                  className="border-[#299CCA] text-[#299CCA] hover:bg-bazara-blue-light h-10 px-4 flex items-center gap-2"
+                  variant='outline'
+                  className='border-[#299CCA] text-[#299CCA] hover:bg-bazara-blue-light h-10 px-4 flex items-center gap-2'
                 >
                   <span>Entity: {selectedEntity}</span>
-                  <ChevronDown className="w-4 h-4" />
+                  <ChevronDown className='w-4 h-4' />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-56">
+              <DropdownMenuContent align='start' className='w-56'>
                 <DropdownMenuLabel>Select Entity</DropdownMenuLabel>
-                <DropdownMenuItem 
-                  className="cursor-pointer"
-                  onClick={() => setSelectedEntity("All Entities")}
+                <DropdownMenuItem
+                  className='cursor-pointer'
+                  onClick={() => setSelectedEntity('All Entities')}
                 >
                   All Entities
                 </DropdownMenuItem>
                 {ENTITY_OPTIONS.map((entity) => (
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     key={entity.value}
-                    className="cursor-pointer"
+                    className='cursor-pointer'
                     onClick={() => setSelectedEntity(entity.label)}
                   >
                     {entity.label}
@@ -141,20 +139,22 @@ const TeamsPage: React.FC = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
-                  variant="outline"
-                  className="border-bazara-blue-light text-[#299CCA] hover:bg-bazara-blue-light h-10 px-4 flex items-center gap-2"
+                  variant='outline'
+                  className='border-bazara-blue-light text-[#299CCA] hover:bg-bazara-blue-light h-10 px-4 flex items-center gap-2'
                 >
                   <span>More Filters</span>
-                  <ChevronDown className="w-4 h-4" />
+                  <ChevronDown className='w-4 h-4' />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-48">
+              <DropdownMenuContent align='start' className='w-48'>
                 <DropdownMenuLabel>Filter Options</DropdownMenuLabel>
                 {STATUS_FILTER_OPTIONS.map((status) => (
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     key={status.value}
-                    className="cursor-pointer"
-                    onClick={() => setSelectedStatus(status.label)}
+                    className='cursor-pointer'
+                    onClick={() => {
+                      // Handle status filter change - placeholder for future implementation
+                    }}
                   >
                     {status.label}
                   </DropdownMenuItem>
@@ -164,16 +164,15 @@ const TeamsPage: React.FC = () => {
           </div>
           <Button
             onClick={() => setIsCreateModalOpen(true)}
-            className="bg-bazara-blue hover:bg-bazara-blue/90 text-background h-10 px-4 flex items-center gap-2 place-self-end"
+            className='bg-bazara-blue hover:bg-bazara-blue/90 text-background h-10 px-4 flex items-center gap-2 place-self-end'
           >
-            <Plus className="w-4 h-4" />
+            <Plus className='w-4 h-4' />
             <span>Create New Team</span>
           </Button>
         </div>
 
         <TeamsTable
           teams={teams}
-          loading={loading}
           onEdit={handleEdit}
           onDelete={handleDelete}
           onCreateTeam={() => setIsCreateModalOpen(true)}
@@ -206,18 +205,18 @@ const TeamsPage: React.FC = () => {
         isOpen={isDeleteModalOpen}
         onClose={closeModals}
         onConfirm={handleDeleteTeam}
-        title="Delete Team"
+        title='Delete Team'
         message={`Are you sure you want to delete "${selectedTeam?.name}"? This action cannot be undone.`}
-        confirmText="Delete"
-        cancelText="Cancel"
-        variant="destructive"
+        confirmText='Delete'
+        cancelText='Cancel'
+        variant='destructive'
       />
 
       {/* Success Modal */}
       <SuccessDialog
         isOpen={isSuccessModalOpen}
         onClose={closeModals}
-        title="Success"
+        title='Success'
         message={successMessage}
       />
     </div>

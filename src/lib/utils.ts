@@ -11,7 +11,7 @@ import { twMerge } from 'tailwind-merge';
  * @returns Merged class string
  */
 export function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs));
+  return twMerge(clsx(inputs));
 }
 
 /**
@@ -20,13 +20,13 @@ export function cn(...inputs: ClassValue[]) {
  * @returns Formatted date string
  */
 export function formatDate(date: Date): string {
-	return new Intl.DateTimeFormat('en-US', {
-		year: 'numeric',
-		month: 'short',
-		day: 'numeric',
-		hour: '2-digit',
-		minute: '2-digit',
-	}).format(date);
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date);
 }
 
 /**
@@ -35,15 +35,15 @@ export function formatDate(date: Date): string {
  * @returns Relative time string (e.g., "2 hours ago")
  */
 export function formatRelativeTime(date: Date): string {
-	const now = new Date();
-	const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+  const now = new Date();
+  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
-	if (diffInSeconds < 60) return 'Just now';
-	if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} minutes ago`;
-	if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hours ago`;
-	if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)} days ago`;
-	
-	return formatDate(date);
+  if (diffInSeconds < 60) return 'Just now';
+  if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} minutes ago`;
+  if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hours ago`;
+  if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)} days ago`;
+
+  return formatDate(date);
 }
 
 /**
@@ -52,7 +52,7 @@ export function formatRelativeTime(date: Date): string {
  * @returns Capitalized string
  */
 export function capitalize(str: string): string {
-	return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
 /**
@@ -62,8 +62,8 @@ export function capitalize(str: string): string {
  * @returns Truncated text with ellipsis
  */
 export function truncateText(text: string, maxLength: number): string {
-	if (text.length <= maxLength) return text;
-	return text.slice(0, maxLength) + '...';
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength) + '...';
 }
 
 /**
@@ -72,11 +72,11 @@ export function truncateText(text: string, maxLength: number): string {
  * @returns Initials (e.g., "John Doe" -> "JD")
  */
 export function getInitials(name: string): string {
-	return name
-		.split(' ')
-		.map(word => word.charAt(0).toUpperCase())
-		.join('')
-		.slice(0, 2);
+  return name
+    .split(' ')
+    .map((word) => word.charAt(0).toUpperCase())
+    .join('')
+    .slice(0, 2);
 }
 
 /**
@@ -86,14 +86,14 @@ export function getInitials(name: string): string {
  * @returns Debounced function
  */
 export function debounce<T extends (...args: unknown[]) => unknown>(
-	func: T,
-	delay: number
+  func: T,
+  delay: number
 ): (...args: Parameters<T>) => void {
-	let timeoutId: NodeJS.Timeout;
-	return (...args: Parameters<T>) => {
-		clearTimeout(timeoutId);
-		timeoutId = setTimeout(() => func(...args), delay);
-	};
+  let timeoutId: NodeJS.Timeout;
+  return (...args: Parameters<T>) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func(...args), delay);
+  };
 }
 
 /**
@@ -103,17 +103,17 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
  * @returns Throttled function
  */
 export function throttle<T extends (...args: unknown[]) => unknown>(
-	func: T,
-	delay: number
+  func: T,
+  delay: number
 ): (...args: Parameters<T>) => void {
-	let lastCall = 0;
-	return (...args: Parameters<T>) => {
-		const now = Date.now();
-		if (now - lastCall >= delay) {
-			lastCall = now;
-			func(...args);
-		}
-	};
+  let lastCall = 0;
+  return (...args: Parameters<T>) => {
+    const now = Date.now();
+    if (now - lastCall >= delay) {
+      lastCall = now;
+      func(...args);
+    }
+  };
 }
 
 /**
@@ -122,19 +122,19 @@ export function throttle<T extends (...args: unknown[]) => unknown>(
  * @returns HSL color string
  */
 export function generateAvatarColor(seed: string): string {
-	const colors = [
-		'hsl(220, 70%, 50%)', // Blue
-		'hsl(160, 60%, 50%)', // Green
-		'hsl(30, 80%, 50%)',  // Orange
-		'hsl(280, 60%, 50%)', // Purple
-		'hsl(340, 70%, 50%)', // Pink
-		'hsl(200, 60%, 50%)', // Cyan
-		'hsl(60, 70%, 50%)',  // Yellow
-		'hsl(120, 50%, 50%)', // Lime
-	];
-	
-	const hash = seed.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-	return colors[hash % colors.length];
+  const colors = [
+    'hsl(220, 70%, 50%)', // Blue
+    'hsl(160, 60%, 50%)', // Green
+    'hsl(30, 80%, 50%)', // Orange
+    'hsl(280, 60%, 50%)', // Purple
+    'hsl(340, 70%, 50%)', // Pink
+    'hsl(200, 60%, 50%)', // Cyan
+    'hsl(60, 70%, 50%)', // Yellow
+    'hsl(120, 50%, 50%)', // Lime
+  ];
+
+  const hash = seed.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  return colors[hash % colors.length];
 }
 
 /**
@@ -143,11 +143,11 @@ export function generateAvatarColor(seed: string): string {
  * @returns True if value is empty
  */
 export function isEmpty(value: unknown): boolean {
-	if (value === null || value === undefined) return true;
-	if (typeof value === 'string') return value.trim() === '';
-	if (Array.isArray(value)) return value.length === 0;
-	if (typeof value === 'object') return Object.keys(value).length === 0;
-	return false;
+  if (value === null || value === undefined) return true;
+  if (typeof value === 'string') return value.trim() === '';
+  if (Array.isArray(value)) return value.length === 0;
+  if (typeof value === 'object') return Object.keys(value).length === 0;
+  return false;
 }
 
 /**
@@ -157,11 +157,11 @@ export function isEmpty(value: unknown): boolean {
  * @returns Parsed object or fallback
  */
 export function safeJsonParse<T>(json: string, fallback: T): T {
-	try {
-		return JSON.parse(json);
-	} catch {
-		return fallback;
-	}
+  try {
+    return JSON.parse(json);
+  } catch {
+    return fallback;
+  }
 }
 
 /**
@@ -170,5 +170,5 @@ export function safeJsonParse<T>(json: string, fallback: T): T {
  * @returns Unique ID string
  */
 export function generateId(prefix = 'id'): string {
-	return `${prefix}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  return `${prefix}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 }

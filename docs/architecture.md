@@ -9,6 +9,7 @@
 **Decision**: Use Zustand for state management instead of React Context.
 
 **Rationale**:
+
 - **Performance**: Zustand provides optimized re-renders through selective subscriptions, avoiding unnecessary component updates that Context can cause
 - **Simplicity**: Zustand has a minimal API surface and requires less boilerplate compared to Context + useReducer patterns
 - **TypeScript Support**: Excellent TypeScript integration with minimal configuration
@@ -16,6 +17,7 @@
 - **Developer Experience**: Clean, intuitive API that's easy to test and debug
 
 **Consequences**:
+
 - ✅ Reduced bundle size and improved performance
 - ✅ Simplified state logic with less boilerplate
 - ✅ Better TypeScript integration
@@ -33,6 +35,7 @@
 **Decision**: Use React Hook Form with Zod validation instead of Formik with Yup.
 
 **Rationale**:
+
 - **Performance**: React Hook Form uses uncontrolled components by default, reducing re-renders significantly
 - **Bundle Size**: React Hook Form + Zod has a smaller bundle size compared to Formik + Yup
 - **TypeScript Integration**: Zod provides excellent TypeScript inference and type safety
@@ -40,6 +43,7 @@
 - **Modern Patterns**: React Hook Form aligns better with modern React patterns and hooks
 
 **Consequences**:
+
 - ✅ Better performance with fewer re-renders
 - ✅ Smaller bundle size
 - ✅ Superior TypeScript support
@@ -57,6 +61,7 @@
 **Decision**: Use shadcn/ui components instead of building custom components or using other libraries.
 
 **Rationale**:
+
 - **Customization**: shadcn/ui provides copy-paste components that can be fully customized
 - **Accessibility**: Built on Radix UI primitives, ensuring excellent accessibility out of the box
 - **Design System**: Consistent design tokens and styling approach
@@ -65,6 +70,7 @@
 - **Maintenance**: Components are part of your codebase, reducing dependency on external updates
 
 **Consequences**:
+
 - ✅ Full control over component styling and behavior
 - ✅ Excellent accessibility support
 - ✅ Consistent design system
@@ -83,6 +89,7 @@
 **Decision**: Implement client-side pagination instead of server-side pagination.
 
 **Rationale**:
+
 - **Simplicity**: Client-side pagination is simpler to implement with mock data
 - **Performance**: With 500+ records, client-side pagination provides good performance
 - **User Experience**: Instant filtering and sorting without network requests
@@ -90,6 +97,7 @@
 - **Development Speed**: Faster to implement and test during development phase
 
 **Consequences**:
+
 - ✅ Simpler implementation and testing
 - ✅ Better user experience with instant interactions
 - ✅ Works offline
@@ -109,6 +117,7 @@
 **Decision**: Use feature-based folder structure instead of layer-based structure.
 
 **Rationale**:
+
 - **Scalability**: Easier to add new features without affecting existing code
 - **Team Collaboration**: Different teams can work on different features independently
 - **Code Locality**: Related code (components, hooks, types) are co-located
@@ -116,6 +125,7 @@
 - **Testing**: Feature-based structure makes it easier to write focused tests
 
 **Consequences**:
+
 - ✅ Better code organization and maintainability
 - ✅ Easier team collaboration
 - ✅ Improved code locality
@@ -123,6 +133,7 @@
 - ⚠️ Potential for code duplication across features (mitigated by shared components)
 
 **Structure**:
+
 ```
 src/
 ├── features/           # Feature-based modules
