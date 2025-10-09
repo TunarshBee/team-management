@@ -95,13 +95,20 @@ const TeamsPage: React.FC = () => {
         <h1 className='text-base font-bold leading-6 text-foreground pb-6 border-b border-[#EBEBEB] mb-6'>
           Teams
         </h1>
+        <p className='text-bazara-gray mb-6'>Manage your team members and their information</p>
 
-        <div className='flex items-center justify-between p-6'>
+        <div
+          className='flex items-center justify-between p-6'
+          role='toolbar'
+          aria-label='Team management controls'
+        >
           <div className='flex items-center gap-4'>
             <SearchInput
               placeholder='Search by team name or code'
               value={searchValue}
               onChange={setSearchValue}
+              ariaLabel='Search teams by name or code'
+              id='teams-search'
             />
 
             <DropdownMenu>

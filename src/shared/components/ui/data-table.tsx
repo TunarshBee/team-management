@@ -29,6 +29,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown-menu';
+import { Input } from '@/shared/components/ui/input';
 import {
   Table,
   TableBody,
@@ -94,16 +95,22 @@ export function DataTable<TData, TValue>({
       id: 'actions',
       cell: ({ row }) => {
         const rowData = row.original;
+        const rowIndex = row.index;
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant='ghost' className='h-8 w-8 p-0'>
+              <Button
+                variant='ghost'
+                className='h-8 w-8 p-0'
+                aria-label={`Actions for row ${rowIndex + 1}`}
+                aria-haspopup='menu'
+              >
                 <span className='sr-only'>Open menu</span>
-                <MoreHorizontal className='h-4 w-4' />
+                <MoreHorizontal className='h-4 w-4' aria-hidden='true' />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align='end' className='w-48'>
-              <DropdownMenuLabel className='p-0'></DropdownMenuLabel>
+            <DropdownMenuContent align='end' className='w-48' role='menu'>
+              <DropdownMenuLabel className='p-0 sr-only'>Actions</DropdownMenuLabel>
               {actionItems.map((item) => (
                 <DropdownMenuItem
                   key={item.value}
@@ -113,8 +120,13 @@ export function DataTable<TData, TValue>({
                       ? 'text-red-600 hover:bg-red-50'
                       : 'text-bazara-gray hover:bg-bazara-gray-light'
                   }`}
+                  role='menuitem'
                 >
-                  {item.icon && <span className='mr-2'>{item.icon}</span>}
+                  {item.icon && (
+                    <span className='mr-2' aria-hidden='true'>
+                      {item.icon}
+                    </span>
+                  )}
                   {item.label}
                 </DropdownMenuItem>
               ))}
@@ -136,7 +148,7 @@ export function DataTable<TData, TValue>({
         <Checkbox
           checked={table.getIsAllPageRowsSelected()}
           onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label='Select all'
+          aria-label='Select all rows on current page'
           className='rounded border-bazara-blue-light'
         />
       ),
@@ -144,7 +156,7 @@ export function DataTable<TData, TValue>({
         <Checkbox
           checked={row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label='Select row'
+          aria-label={`Select row ${row.index + 1}`}
           className='rounded border-bazara-blue-light'
         />
       ),
@@ -184,13 +196,24 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className='space-y-0'>
-      <div className='rounded-md'>
-        <Table>
+      <div className='rounded-md' role='region' aria-label='Data table'>
+        <Table role='table' aria-label='Teams data table'>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className='bg-bazara-blue hover:bg-bazara-blue'>
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id} className='text-background font-semibold border-none'>
+                  <TableHead
+                    key={header.id}
+                    className='text-background font-semibold border-none'
+                    scope='col'
+                    aria-sort={
+                      header.column.getIsSorted() === 'asc'
+                        ? 'ascending'
+                        : header.column.getIsSorted() === 'desc'
+                          ? 'descending'
+                          : 'none'
+                    }
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(header.column.columnDef.header, header.getContext())}
@@ -201,14 +224,17 @@ export function DataTable<TData, TValue>({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+              table.getRowModel().rows.map((row, rowIndex) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
                   className='hover:bg-bazara-blue-light'
+                  role='row'
+                  aria-selected={row.getIsSelected()}
+                  aria-rowindex={rowIndex + 2}
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                  {row.getVisibleCells().map((cell, cellIndex) => (
+                    <TableCell key={cell.id} role='cell' aria-colindex={cellIndex + 1}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
@@ -216,8 +242,15 @@ export function DataTable<TData, TValue>({
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={finalColumns.length} className='h-24 text-center'>
-                  No results.
+                <TableCell
+                  colSpan={finalColumns.length}
+                  className='h-24 text-center'
+                  role='cell'
+                  aria-colspan={finalColumns.length}
+                >
+                  <span role='status' aria-live='polite'>
+                    No results found.
+                  </span>
                 </TableCell>
               </TableRow>
             )}
@@ -226,35 +259,53 @@ export function DataTable<TData, TValue>({
       </div>
 
       {enablePagination && (
-        <div className='flex items-center justify-between bg-white px-6 py-4 border-t border-bazara-gray-light'>
+        <nav
+          className='flex items-center justify-between bg-white px-6 py-4 border-t border-bazara-gray-light'
+          role='navigation'
+          aria-label='Table pagination'
+        >
           <div className='flex items-center space-x-2'>
-            <span className='text-sm text-bazara-gray font-medium'>Page Size</span>
+            <label htmlFor='page-size-select' className='text-sm text-bazara-gray font-medium'>
+              Page Size
+            </label>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant='outline' className='h-8 w-16'>
+                <Button
+                  variant='outline'
+                  className='h-8 w-16'
+                  id='page-size-select'
+                  aria-label={`Current page size: ${table.getState().pagination.pageSize} items per page`}
+                  aria-haspopup='listbox'
+                >
                   {table.getState().pagination.pageSize}
-                  <ChevronDown className='ml-2 h-4 w-4' />
+                  <ChevronDown className='ml-2 h-4 w-4' aria-hidden='true' />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align='start'>
+              <DropdownMenuContent align='start' role='listbox'>
                 {PAGE_SIZE_OPTIONS.map((size) => (
-                  <DropdownMenuItem key={size} onClick={() => table.setPageSize(size)}>
-                    {size}
+                  <DropdownMenuItem
+                    key={size}
+                    onClick={() => table.setPageSize(size)}
+                    role='option'
+                    aria-selected={size === table.getState().pagination.pageSize}
+                  >
+                    {size} items per page
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
 
-          <div className='flex items-center space-x-2'>
+          <div className='flex items-center space-x-2' role='group' aria-label='Page navigation'>
             <Button
               variant='ghost'
               size='sm'
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
               className='text-bazara-gray-light hover:text-bazara-gray disabled:text-bazara-gray-light'
+              aria-label='Go to previous page'
             >
-              &lt;
+              <span aria-hidden='true'>&lt;</span>
             </Button>
 
             {Array.from({ length: Math.min(5, table.getPageCount()) }, (_, i) => {
@@ -263,19 +314,20 @@ export function DataTable<TData, TValue>({
                   0,
                   Math.min(table.getPageCount() - 5, table.getState().pagination.pageIndex - 2)
                 ) + i;
+              const isCurrentPage = pageIndex === table.getState().pagination.pageIndex;
               return (
                 <Button
                   key={pageIndex}
-                  variant={
-                    pageIndex === table.getState().pagination.pageIndex ? 'default' : 'ghost'
-                  }
+                  variant={isCurrentPage ? 'default' : 'ghost'}
                   size='sm'
                   onClick={() => table.setPageIndex(pageIndex)}
                   className={`w-6 h-6 p-0 text-sm rounded-full ${
-                    pageIndex === table.getState().pagination.pageIndex
+                    isCurrentPage
                       ? 'bg-bazara-blue text-background hover:bg-bazara-blue/90'
                       : 'text-bazara-gray hover:text-foreground hover:bg-bazara-blue-light'
                   }`}
+                  aria-label={`Go to page ${pageIndex + 1}`}
+                  aria-current={isCurrentPage ? 'page' : undefined}
                 >
                   {pageIndex + 1}
                 </Button>
@@ -288,17 +340,40 @@ export function DataTable<TData, TValue>({
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
               className='text-bazara-gray-light hover:text-bazara-gray disabled:text-bazara-gray-light'
+              aria-label='Go to next page'
             >
-              &gt;
+              <span aria-hidden='true'>&gt;</span>
             </Button>
           </div>
 
           <div className='flex items-center space-x-4'>
-            <span className='text-sm text-bazara-gray'>
+            <span className='text-sm text-bazara-gray' role='status' aria-live='polite'>
               Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
             </span>
+            <div className='flex items-center space-x-2'>
+              <label htmlFor='go-to-page-input' className='text-sm text-bazara-gray'>
+                Go to page
+              </label>
+              <Input
+                type='number'
+                min={1}
+                max={table.getPageCount()}
+                value={table.getState().pagination.pageIndex + 1}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                  table.setPageIndex(page);
+                }}
+                className='w-16 h-8 text-center'
+                id='go-to-page-input'
+                aria-label='Go to page number'
+                aria-describedby='page-range'
+              />
+              <span id='page-range' className='sr-only'>
+                Enter a page number between 1 and {table.getPageCount()}
+              </span>
+            </div>
           </div>
-        </div>
+        </nav>
       )}
     </div>
   );

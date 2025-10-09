@@ -73,6 +73,6 @@ describe('TeamsTable Component', () => {
   it('should show empty state when no teams', () => {
     render(<TeamsTable {...defaultProps} teams={[]} />);
 
-    expect(screen.getByText('No results.')).toBeInTheDocument();
+    expect(screen.getByText('No results found.')).toBeInTheDocument();
   });
 });
