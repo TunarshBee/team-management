@@ -11,7 +11,7 @@ import SlidingPanel from '@/shared/components/ui/sliding-panel';
 import { Textarea } from '@/shared/components/ui/textarea';
 import { ETeamStatus, ITeam, ITeamFormData } from '@/types/global';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Check } from 'lucide-react';
+import Image from 'next/image';
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -132,7 +132,13 @@ const TeamForm: React.FC<ITeamFormProps> = ({
               className='pr-10'
             />
             {isNameValid && (
-              <Check className='absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-500' />
+              <Image
+                src='/icons/input-check.svg'
+                alt='Check Icon'
+                width={16}
+                height={16}
+                className='absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-500'
+              />
             )}
           </div>
         </div>
@@ -151,7 +157,13 @@ const TeamForm: React.FC<ITeamFormProps> = ({
               className='pr-10'
             />
             {isCodeValid && (
-              <Check className='absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-500' />
+              <Image
+                src='/icons/input-check.svg'
+                alt='Check Icon'
+                width={16}
+                height={16}
+                className='absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-500'
+              />
             )}
           </div>
           <p className='text-xs text-bazara-gray-light mt-1'>Min.: 3 and Max.: 5 characters</p>
@@ -182,7 +194,13 @@ const TeamForm: React.FC<ITeamFormProps> = ({
               className='pr-10'
             />
             {isEmailValid && (
-              <Check className='absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-500' />
+              <Image
+                src='/icons/input-check.svg'
+                alt='Check Icon'
+                width={16}
+                height={16}
+                className='absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-green-500'
+              />
             )}
           </div>
           <p className='text-xs text-bazara-gray-light mt-1'>

@@ -18,6 +18,7 @@ import { ENTITY_OPTIONS, STATUS_FILTER_OPTIONS } from '@/shared/constants/naviga
 import { useTeamStore } from '@/stores/teamStore';
 import { ITeam, ITeamFormData } from '@/types/global';
 import { ChevronDown, Plus } from 'lucide-react';
+import Image from 'next/image';
 import * as React from 'react';
 
 const TeamsPage: React.FC = () => {
@@ -172,6 +173,15 @@ const TeamsPage: React.FC = () => {
           onDelete={handleDelete}
           onCreateTeam={() => setIsCreateModalOpen(true)}
         />
+        <Button variant='ghost' size='icon'>
+          <Image
+            src='/icons/ai-icon.svg'
+            alt='Ai Icon'
+            width={40}
+            height={40}
+            className='fixed bottom-10 right-10'
+          />
+        </Button>
       </div>
 
       <TeamForm

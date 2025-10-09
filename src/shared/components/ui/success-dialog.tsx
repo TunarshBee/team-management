@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { CheckCircle } from 'lucide-react';
 import { Button } from '@/shared/components/ui/button';
 import {
   Dialog,
@@ -9,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/shared/components/ui/dialog';
+import Image from 'next/image';
 
 export interface ISuccessDialogProps {
   isOpen: boolean;
@@ -31,7 +31,7 @@ const SuccessDialog: React.FC<ISuccessDialogProps> = ({
         <DialogHeader>
           <div className='flex items-center space-x-3'>
             <div className='flex h-10 w-10 items-center justify-center rounded-full bg-green-100 text-green-600'>
-              <CheckCircle className='h-5 w-5' />
+              <Image src='/icons/info-icon.svg' alt='Check Circle' width={64} height={64} />
             </div>
             <DialogTitle>{title}</DialogTitle>
           </div>

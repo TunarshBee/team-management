@@ -225,10 +225,8 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
 
-      {/* Pagination */}
       {enablePagination && (
         <div className='flex items-center justify-between bg-white px-6 py-4 border-t border-bazara-gray-light'>
-          {/* Left Side - Page Size */}
           <div className='flex items-center space-x-2'>
             <span className='text-sm text-bazara-gray font-medium'>Page Size</span>
             <DropdownMenu>
@@ -248,7 +246,6 @@ export function DataTable<TData, TValue>({
             </DropdownMenu>
           </div>
 
-          {/* Center - Page Navigation */}
           <div className='flex items-center space-x-2'>
             <Button
               variant='ghost'
@@ -296,7 +293,6 @@ export function DataTable<TData, TValue>({
             </Button>
           </div>
 
-          {/* Right Side - Page Status */}
           <div className='flex items-center space-x-4'>
             <span className='text-sm text-bazara-gray'>
               Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}

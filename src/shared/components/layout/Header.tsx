@@ -16,7 +16,7 @@ const Header: React.FC = () => {
             Bazara
           </span>
         </div>
-        <div className='flex-1 max-w-md mx-8'>
+        <div className='flex-1 mr-6'>
           <SearchInput
             placeholder='Search for anything'
             className='border-bazara-gray-light rounded-md focus:ring-2 focus:ring-bazara-blue focus:border-transparent'
@@ -41,22 +41,14 @@ const Header: React.FC = () => {
       </div>
       <div className='flex items-center space-x-6 ml-6'>
         <div className='w-px h-6 bg-bazara-gray-light'></div>
-        <Button
-          variant='ghost'
-          size='icon'
-          className='text-bazara-gray-light hover:bg-bazara-gray-light'
-        >
+        <Button variant='ghost' size='icon'>
           <Image src='/icons/notification.svg' alt='Bell' width={32} height={32} />
         </Button>
         <Button variant='ghost' size='icon'>
           <Image src='/icons/more.svg' alt='Grid' width={32} height={32} />
         </Button>
-        <Button
-          variant='ghost'
-          size='icon'
-          className='bg-bazara-blue hover:bg-bazara-blue/90 rounded-full'
-        >
-          <Image src='/images/user.png' alt='User' width={32} height={32} />
+        <Button variant='ghost' size='icon'>
+          <Image src='/images/user.png' alt='User' width={36} height={36} />
         </Button>
       </div>
     </header>
