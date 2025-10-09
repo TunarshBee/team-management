@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
@@ -23,21 +23,23 @@
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-slot": "^1.2.3",
+    "@tailwindcss/postcss": "^4.1.14",
     "@tanstack/react-table": "^8.21.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.545.0",
     "next": "15.5.4",
+    "postcss": "^8.5.6",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.64.0",
     "tailwind-merge": "^3.3.1",
+    "tailwindcss": "^4.1.14",
     "zod": "^4.1.12",
     "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
@@ -55,7 +57,6 @@
     "jest-environment-jsdom": "^30.2.0",
     "lint-staged": "^16.2.3",
     "prettier": "^3.6.2",
-    "tailwindcss": "^4",
     "typescript": "^5"
   },
   "lint-staged": {

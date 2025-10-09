@@ -24,24 +24,34 @@ export const PRIMARY_NAV_ITEMS: INavigationItem[] = [
     isActive: true,
   },
   {
-    id: 'dashboard',
-    label: 'Dashboard',
-    href: '/dashboard',
+    id: 'workbench',
+    label: 'Workbench',
+    href: '/workbench',
   },
   {
-    id: 'analytics',
-    label: 'Analytics',
-    href: '/analytics',
+    id: 'tickets',
+    label: 'Tickets',
+    href: '/tickets',
   },
   {
-    id: 'reports',
-    label: 'Reports',
-    href: '/reports',
+    id: 'service-request',
+    label: 'Service Request',
+    href: '/service-request',
   },
   {
-    id: 'settings',
-    label: 'Settings',
-    href: '/settings',
+    id: 'service-catalogue',
+    label: 'Service Catalogue',
+    href: '/service-catalogue',
+  },
+  {
+    id: 'knowledge-management',
+    label: 'Knowledge Management',
+    href: '/knowledge-management',
+  },
+  {
+    id: 'admin-settings',
+    label: 'Admin Settings',
+    href: '/admin-settings',
   },
 ];
 

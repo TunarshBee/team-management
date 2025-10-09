@@ -1,11 +1,10 @@
 'use client';
 
-import * as React from 'react';
-import { Search, User } from 'lucide-react';
 import { Button } from '@/shared/components/ui/button';
-import { Input } from '@/shared/components/ui/input';
-import Image from 'next/image';
+import { SearchInput } from '@/shared/components/ui/search-input';
 import { PRIMARY_NAV_ITEMS } from '@/shared/constants/navigation';
+import Image from 'next/image';
+import * as React from 'react';
 
 const Header: React.FC = () => {
   return (
@@ -18,14 +17,10 @@ const Header: React.FC = () => {
           </span>
         </div>
         <div className='flex-1 max-w-md mx-8'>
-          <div className='relative'>
-            <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-bazara-gray w-4 h-4' />
-            <Input
-              type='text'
-              placeholder='Search for anything'
-              className='pl-10 pr-4 py-2 w-full border-bazara-gray-light rounded-md focus:ring-2 focus:ring-bazara-blue focus:border-transparent'
-            />
-          </div>
+          <SearchInput
+            placeholder='Search for anything'
+            className='border-bazara-gray-light rounded-md focus:ring-2 focus:ring-bazara-blue focus:border-transparent'
+          />
         </div>
       </div>
 
@@ -61,7 +56,7 @@ const Header: React.FC = () => {
           size='icon'
           className='bg-bazara-blue hover:bg-bazara-blue/90 rounded-full'
         >
-          <User className='w-5 h-5 text-background' />
+          <Image src='/images/user.png' alt='User' width={32} height={32} />
         </Button>
       </div>
     </header>

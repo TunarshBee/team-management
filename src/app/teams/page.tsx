@@ -12,12 +12,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown-menu';
-import { Input } from '@/shared/components/ui/input';
+import { SearchInput } from '@/shared/components/ui/search-input';
 import SuccessDialog from '@/shared/components/ui/success-dialog';
 import { ENTITY_OPTIONS, STATUS_FILTER_OPTIONS } from '@/shared/constants/navigation';
 import { useTeamStore } from '@/stores/teamStore';
 import { ITeam, ITeamFormData } from '@/types/global';
-import { ChevronDown, Plus, Search } from 'lucide-react';
+import { ChevronDown, Plus } from 'lucide-react';
 import * as React from 'react';
 
 const TeamsPage: React.FC = () => {
@@ -30,6 +30,7 @@ const TeamsPage: React.FC = () => {
   const [selectedTeam, setSelectedTeam] = React.useState<ITeam | null>(null);
   const [successMessage, setSuccessMessage] = React.useState('');
   const [selectedEntity, setSelectedEntity] = React.useState('All Entities');
+  const [searchValue, setSearchValue] = React.useState('');
 
   const closeModals = () => {
     setIsCreateModalOpen(false);
@@ -96,13 +97,11 @@ const TeamsPage: React.FC = () => {
 
         <div className='flex items-center justify-between p-6'>
           <div className='flex items-center gap-4'>
-            <div className='relative max-w-[350px]'>
-              <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-bazara-gray w-4 h-4' />
-              <Input
-                placeholder='Search by team name or code'
-                className='pl-10 border border-[#EBEBEB] rounded-lg'
-              />
-            </div>
+            <SearchInput
+              placeholder='Search by team name or code'
+              value={searchValue}
+              onChange={setSearchValue}
+            />
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
