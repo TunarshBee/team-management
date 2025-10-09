@@ -196,75 +196,82 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className='space-y-0'>
-      <div className='rounded-md' role='region' aria-label='Data table'>
-        <Table role='table' aria-label='Teams data table'>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className='bg-bazara-blue hover:bg-bazara-blue'>
-                {headerGroup.headers.map((header) => (
-                  <TableHead
-                    key={header.id}
-                    className='text-background font-semibold border-none'
-                    scope='col'
-                    aria-sort={
-                      header.column.getIsSorted() === 'asc'
-                        ? 'ascending'
-                        : header.column.getIsSorted() === 'desc'
-                          ? 'descending'
-                          : 'none'
-                    }
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row, rowIndex) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                  className='hover:bg-bazara-blue-light'
-                  role='row'
-                  aria-selected={row.getIsSelected()}
-                  aria-rowindex={rowIndex + 2}
-                >
-                  {row.getVisibleCells().map((cell, cellIndex) => (
-                    <TableCell key={cell.id} role='cell' aria-colindex={cellIndex + 1}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
+      <div className='rounded-md overflow-hidden' role='region' aria-label='Data table'>
+        <div className='overflow-x-auto'>
+          <Table role='table' aria-label='Teams data table' className='min-w-full'>
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id} className='bg-bazara-blue hover:bg-bazara-blue'>
+                  {headerGroup.headers.map((header) => (
+                    <TableHead
+                      key={header.id}
+                      className='text-background font-semibold border-none whitespace-nowrap'
+                      scope='col'
+                      aria-sort={
+                        header.column.getIsSorted() === 'asc'
+                          ? 'ascending'
+                          : header.column.getIsSorted() === 'desc'
+                            ? 'descending'
+                            : 'none'
+                      }
+                    >
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(header.column.columnDef.header, header.getContext())}
+                    </TableHead>
                   ))}
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={finalColumns.length}
-                  className='h-24 text-center'
-                  role='cell'
-                  aria-colspan={finalColumns.length}
-                >
-                  <span role='status' aria-live='polite'>
-                    No results found.
-                  </span>
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row, rowIndex) => (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && 'selected'}
+                    className='hover:bg-bazara-blue-light'
+                    role='row'
+                    aria-selected={row.getIsSelected()}
+                    aria-rowindex={rowIndex + 2}
+                  >
+                    {row.getVisibleCells().map((cell, cellIndex) => (
+                      <TableCell
+                        key={cell.id}
+                        role='cell'
+                        aria-colindex={cellIndex + 1}
+                        className='whitespace-nowrap'
+                      >
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={finalColumns.length}
+                    className='h-24 text-center'
+                    role='cell'
+                    aria-colspan={finalColumns.length}
+                  >
+                    <span role='status' aria-live='polite'>
+                      No results found.
+                    </span>
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </div>
 
       {enablePagination && (
         <nav
-          className='flex items-center justify-between bg-white px-6 py-4 border-t border-bazara-gray-light'
+          className='flex flex-col sm:flex-row items-center justify-between bg-white px-4 sm:px-6 py-4 border-t border-bazara-gray-light gap-4'
           role='navigation'
           aria-label='Table pagination'
         >
-          <div className='flex items-center space-x-2'>
+          <div className='flex items-center space-x-2 order-1 sm:order-none'>
             <label htmlFor='page-size-select' className='text-sm text-bazara-gray font-medium'>
               Page Size
             </label>
@@ -296,7 +303,11 @@ export function DataTable<TData, TValue>({
             </DropdownMenu>
           </div>
 
-          <div className='flex items-center space-x-2' role='group' aria-label='Page navigation'>
+          <div
+            className='flex items-center space-x-2 order-2 sm:order-none'
+            role='group'
+            aria-label='Page navigation'
+          >
             <Button
               variant='ghost'
               size='sm'
@@ -308,31 +319,39 @@ export function DataTable<TData, TValue>({
               <span aria-hidden='true'>&lt;</span>
             </Button>
 
-            {Array.from({ length: Math.min(5, table.getPageCount()) }, (_, i) => {
-              const pageIndex =
-                Math.max(
-                  0,
-                  Math.min(table.getPageCount() - 5, table.getState().pagination.pageIndex - 2)
-                ) + i;
-              const isCurrentPage = pageIndex === table.getState().pagination.pageIndex;
-              return (
-                <Button
-                  key={pageIndex}
-                  variant={isCurrentPage ? 'default' : 'ghost'}
-                  size='sm'
-                  onClick={() => table.setPageIndex(pageIndex)}
-                  className={`w-6 h-6 p-0 text-sm rounded-full ${
-                    isCurrentPage
-                      ? 'bg-bazara-blue text-background hover:bg-bazara-blue/90'
-                      : 'text-bazara-gray hover:text-foreground hover:bg-bazara-blue-light'
-                  }`}
-                  aria-label={`Go to page ${pageIndex + 1}`}
-                  aria-current={isCurrentPage ? 'page' : undefined}
-                >
-                  {pageIndex + 1}
-                </Button>
-              );
-            })}
+            <div className='hidden sm:flex items-center space-x-1'>
+              {Array.from({ length: Math.min(5, table.getPageCount()) }, (_, i) => {
+                const pageIndex =
+                  Math.max(
+                    0,
+                    Math.min(table.getPageCount() - 5, table.getState().pagination.pageIndex - 2)
+                  ) + i;
+                const isCurrentPage = pageIndex === table.getState().pagination.pageIndex;
+                return (
+                  <Button
+                    key={pageIndex}
+                    variant={isCurrentPage ? 'default' : 'ghost'}
+                    size='sm'
+                    onClick={() => table.setPageIndex(pageIndex)}
+                    className={`w-6 h-6 p-0 text-sm rounded-full ${
+                      isCurrentPage
+                        ? 'bg-bazara-blue text-background hover:bg-bazara-blue/90'
+                        : 'text-bazara-gray hover:text-foreground hover:bg-bazara-blue-light'
+                    }`}
+                    aria-label={`Go to page ${pageIndex + 1}`}
+                    aria-current={isCurrentPage ? 'page' : undefined}
+                  >
+                    {pageIndex + 1}
+                  </Button>
+                );
+              })}
+            </div>
+
+            <div className='sm:hidden flex items-center space-x-2'>
+              <span className='text-sm text-bazara-gray'>
+                {table.getState().pagination.pageIndex + 1} / {table.getPageCount()}
+              </span>
+            </div>
 
             <Button
               variant='ghost'
@@ -346,8 +365,12 @@ export function DataTable<TData, TValue>({
             </Button>
           </div>
 
-          <div className='flex items-center space-x-4'>
-            <span className='text-sm text-bazara-gray' role='status' aria-live='polite'>
+          <div className='flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 order-3 sm:order-none'>
+            <span
+              className='text-sm text-bazara-gray hidden sm:block'
+              role='status'
+              aria-live='polite'
+            >
               Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
             </span>
             <div className='flex items-center space-x-2'>

@@ -22,7 +22,7 @@ const SlidingPanel: React.FC<ISlidingPanelProps> = ({
   onClose,
   title,
   children,
-  width = 'w-96',
+  width: _width = 'w-96',
 }) => {
   const panelRef = React.useRef<HTMLDivElement>(null);
 
@@ -63,7 +63,7 @@ const SlidingPanel: React.FC<ISlidingPanelProps> = ({
       {/* Sliding Panel */}
       <div
         ref={panelRef}
-        className={`fixed top-0 right-0 h-full ${width} bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col`}
+        className={`fixed top-0 right-0 h-full w-full sm:w-96 lg:w-96 bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col`}
         style={{
           transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
         }}
